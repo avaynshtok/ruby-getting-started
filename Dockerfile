@@ -15,5 +15,5 @@ COPY . .
 RUN bundle exec rake assets:precompile
 
 # use 0.0.0.0 to make port forwarding work in dev mode
-# EXPOSE 3000
-# CMD ["bundle", "exec", "rackup", "--port=3000", "--host=0.0.0.0"]
+EXPOSE 5000
+CMD ["bundle", "exec", "rackup", "--port=5000", "--host=0.0.0.0"]
