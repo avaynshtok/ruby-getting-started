@@ -1,0 +1,31 @@
+web:
+  build: .
+  command: 'bash -c ''bundle exec puma -C config/puma.rb'''
+  working_dir: /usr/src/app
+  environment:
+    PORT: 8080
+    RAILS_ENV: production
+    SECRET_KEY_BASE: 189f8e836260fb93a522a78e6a157b34178bd09d65174da1e64a964f9c4010a76d620332e6b2106b3af215cc4522a0e6053aed7b108ef8c5ee0ae25cef38f7c0
+    DATABASE_URL: 'postgres://postgres:@herokuPostgresql:5432/postgres'
+  ports:
+    - '8080:8080'
+  links:
+    - herokuPostgresql
+shell:
+  build: .
+  command: bash
+  working_dir: /usr/src/app
+  environment:
+    PORT: 8080
+    RAILS_ENV: production
+    DATABASE_URL: 'postgres://postgres:@herokuPostgresql:5432/postgres'
+  ports:
+    - '8080:8080'
+  links:
+    - herokuPostgresql
+  volumes:
+    - '.:/app/user'
+herokuPostgresql:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: password
